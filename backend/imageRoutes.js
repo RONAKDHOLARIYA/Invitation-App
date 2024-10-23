@@ -33,21 +33,20 @@ router.post("/generate-image", upload.single("image"), async (req, res) => {
     phone,
     address,
     age,
-    achievement_type = "birthday",
-    x = 546,
-    y = 384,
+    achievement_type = "test", // Here pass dynamic value
   } = req.body;
   const uploadedImage = req.file; // The uploaded passport-size image
 
   try {
     const getAchievementImage = await Achievement.findOne({ achievement_type });
 
+    let x = getAchievementImage?.x || 546;
+    let y = getAchievementImage?.y || 384;
+
     if (!getAchievementImage) {
       return res.status(400).send("Achievement image not found");
     }
     let imgUrl = `http://localhost:3000/Image/${getAchievementImage?.image}`;
-
-    console.log("imgUrl", imgUrl);
 
     // const img = await loadImage("https://i.ibb.co/7W3bH9Q/image.png");
     const img = await loadImage(imgUrl);

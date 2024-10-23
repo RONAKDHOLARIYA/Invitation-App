@@ -43,12 +43,12 @@ const upload = multer({
 
 app.post("/upload", upload.single("file"), (req, res) => {
   console.log(req.file); // Log the file information to verify
-  let achievement_type = req.body.achievement_type;
+  let { achievement_type, x, y } = req.body;
   if (!req.file) {
     return res.status(400).json({ error: "No file uploaded" });
   }
 
-  AchivementModal.create({ image: req.file.filename, achievement_type })
+  AchivementModal.create({ image: req.file.filename, achievement_type, x, y })
     .then((result) => res.json(result))
     .catch((err) => {
       console.log(err);

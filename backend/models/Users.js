@@ -7,6 +7,11 @@ const UserSchema = new mongoose.Schema({
   number: Number,
   role: String,
   address: String,
+  otp: String,
+  isOtpVerified: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const UserModel = mongoose.model("users", UserSchema);
